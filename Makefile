@@ -1,4 +1,3 @@
-# COMP2521 - Week 7 Lab
 
 # !!! DO NOT MODIFY THIS FILE !!!
 

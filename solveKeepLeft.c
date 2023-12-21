@@ -1,3 +1,4 @@
+/*
 // Maze solver that hugs the left wall
 
 #include <assert.h>
@@ -14,4 +15,4 @@ bool solve(Maze m) {
     //       Feel free to add helper functions
     return false;
 }
-
+*/

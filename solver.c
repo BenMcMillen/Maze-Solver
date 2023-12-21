@@ -10,11 +10,21 @@
 #include <windows.h>
 
 #include "Maze.h"
-#include "solve.h"
+#include "solveDFS.c"
+#include "solveBFS.c"
 
 
 int main(int argc, char *argv[]) {
-    
+    int numops = 2;
+    int op;
+    printf("Available solving Options\n1. DFS\n2. BFS\nPlease enter a number ranging from 1 to %d:", numops);
+    scanf("%d", &op);
+    while (op <= 0 || op > numops) {
+        printf("Available solving Options\n1. DFS\n2. BFS\nPlease enter a number ranging from 1 to %d:", numops);
+        scanf("%d", &op);
+    }
+
+
     struct _finddata_t file_info;
     intptr_t handle;
     handle = _findfirst("mazes\\*.*", &file_info);
@@ -90,8 +100,15 @@ int main(int argc, char *argv[]) {
 
     MazeSetDisplayPause(pauseMs);
 
-    bool result = solve(m);
-
+    bool result;
+    if (op == 1) {
+        result = solveDFS(m);
+    }
+    else if (op == 2) {
+        result = solveBFS(m);
+    }
+    //bool result = solve(m);
+    
     printf("\nThe exit was %s\n", result ? "found!" : "not found.");
     
     MazeFree(m);

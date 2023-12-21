@@ -80,20 +80,8 @@ Maze MazeRead(FILE *fp) {
 
 static bool readDimensions(Maze m, FILE *fp) {
     char *line = NULL;
-    //char line[1024];
     size_t n = 0;
     bool res;
-
-    //  if (!(res = (getline(&line, &n, fp) > 0 &&
-    //        sscanf(line, "%d %d", &m->height, &m->width) == 2)))
-
-    //res = (fgets(line, sizeof(line), fp) != NULL &&
-         //   sscanf(line, "%d %d", &m->height, &m->width) == 2);
-    
-    //printf("HEEREE - %s", line);
-    //printf("\n");
-    //printf("%d %d \n", m->height, m->width);
-    //if (!res) {
    
     if (!(res = (getline(&line, &n, fp) > 0 &&
         sscanf(line, "%d %d", &m->height, &m->width) == 2))) {
@@ -101,8 +89,6 @@ static bool readDimensions(Maze m, FILE *fp) {
     } else if (!(res = (m->height > 0 && m->width > 0))) {
         fprintf(stderr, "error: invalid maze dimensions\n");
     }
-
-    //free(line);
     return res;
 }
 
@@ -140,10 +126,7 @@ static bool readCells(Maze m, FILE *fp) {
 
     size_t n = m->width + 2;
     for (int i = 0; i < m->height; i++) {
-        //bool res = fgets(line, n, fp);
-        //printf("HEEEEREE2 - %s \n", line);
         if (getline(&line, &n, fp) < m->width) {
-        //if (res < m->width) {
             fprintf(stderr, "error: not enough cells on row %d\n", i);
             freeCells(m);
             free(line);
@@ -175,9 +158,6 @@ static bool readStart(Maze m, FILE *fp) {
 
     if (!(res = (getline(&line, &n, fp) > 0 &&
          sscanf(line, "%d %d", &m->start.row, &m->start.col) == 2))) {
-    //res = (fgets(line, n, fp) > 0 &&
-    //        sscanf(line, "%d %d", &m->start.row, &m->start.col) == 2);
-    //if (!res) {
         fprintf(stderr, "error: failed to read starting cell\n");
     } else if (!(res = validCell(m, m->start))) {
         fprintf(stderr, "error: invalid starting cell\n");
@@ -199,10 +179,7 @@ static bool readExit(Maze m, FILE *fp) {
     bool res;
 
     if (!(res = (getline(&line, &n, fp) > 0 &&
-            sscanf(line, "%d %d", &m->curr.row, &m->curr.col) == 2))) {
-    //res = (fgets(line, n, fp) > 0 &&
-    //        sscanf(line, "%d %d", &m->curr.row, &m->curr.col) == 2);
-    //if (!res) {   
+            sscanf(line, "%d %d", &m->curr.row, &m->curr.col) == 2))) {  
         fprintf(stderr, "error: failed to read exit cell\n");
     } else if (!(res = validCell(m, m->curr))) {
         fprintf(stderr, "error: invalid exit cell\n");

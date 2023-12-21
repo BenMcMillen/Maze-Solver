@@ -1,5 +1,6 @@
 // DFS maze solver
-
+#ifndef DFS
+#define DFS
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -15,7 +16,8 @@ bool isValidCell(Maze m, Item c, bool **visited) {
 }
 
 
-bool solve(Maze m) {
+//bool solve(Maze m) {
+bool solveDFS(Maze m) {
     // TODO: Complete this function
     //       Feel free to add helper functions
     Item startVert = MazeGetStart(m);
@@ -85,3 +87,4 @@ bool solve(Maze m) {
     return true;
 }
 
+#endif

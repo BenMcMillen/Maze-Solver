@@ -1,4 +1,7 @@
 // BFS maze solver
+#ifndef BFS
+#define BFS
+
 
 #include <assert.h>
 #include <stdbool.h>
@@ -11,12 +14,14 @@
 #include "Queue.h"
 
 
-bool isValidCell(Maze m, Item c, bool **visited) {
+
+bool isValidCellB(Maze m, Item c, bool **visited) {
     return c.row >= 0 && c.row < MazeHeight(m) && c.col >= 0 && c.col < MazeWidth(m) && !MazeIsWall(m, c) && !visited[c.row][c.col];
 }
 
 
-bool solve(Maze m) {
+//bool solve(Maze m) {
+bool solveBFS(Maze m) {
     Item startVert = MazeGetStart(m);
     
 
@@ -48,22 +53,22 @@ bool solve(Maze m) {
         Item r1 = { v.row, v.col + 1 };
 
 
-        if (isValidCell(m,u1,visited)) {
+        if (isValidCellB(m,u1,visited)) {
             visited[u1.row][u1.col] = true;
             pred[u1.row][u1.col] = v;
             QueueEnqueue(q, u1);
         }
-        if (isValidCell(m,d1,visited)) {
+        if (isValidCellB(m,d1,visited)) {
             visited[d1.row][d1.col] = true;
             pred[d1.row][d1.col] = v;
             QueueEnqueue(q, d1);
         }
-        if (isValidCell(m,l1,visited)) {
+        if (isValidCellB(m,l1,visited)) {
             visited[l1.row][l1.col] = true;
             pred[l1.row][l1.col] = v;
             QueueEnqueue(q, l1);
         }
-        if (isValidCell(m,r1,visited)) {
+        if (isValidCellB(m,r1,visited)) {
             visited[r1.row][r1.col] = true;
             pred[r1.row][r1.col] = v;
             QueueEnqueue(q, r1);
@@ -85,3 +90,4 @@ bool solve(Maze m) {
     return true;
 }
 
+#endif
