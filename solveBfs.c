@@ -10,6 +10,12 @@
 #include "Maze.h"
 #include "Queue.h"
 
+
+bool isValidCell(Maze m, Item c, bool **visited) {
+    return c.row >= 0 && c.row < MazeHeight(m) && c.col >= 0 && c.col < MazeWidth(m) && !MazeIsWall(m, c) && !visited[c.row][c.col];
+}
+
+
 bool solve(Maze m) {
     Item startVert = MazeGetStart(m);
     
@@ -42,22 +48,22 @@ bool solve(Maze m) {
         Item r1 = { v.row, v.col + 1 };
 
 
-        if (u1.row >= 0 && u1.row < MazeHeight(m) && u1.col >= 0 && u1.col < MazeWidth(m) && !MazeIsWall(m, u1) && !visited[u1.row][u1.col]) {
+        if (isValidCell(m,u1,visited)) {
             visited[u1.row][u1.col] = true;
             pred[u1.row][u1.col] = v;
             QueueEnqueue(q, u1);
         }
-        if (d1.row >= 0 && d1.row < MazeHeight(m) && d1.col >= 0 && d1.col < MazeWidth(m) && !MazeIsWall(m, d1) && !visited[d1.row][d1.col]) {
+        if (isValidCell(m,d1,visited)) {
             visited[d1.row][d1.col] = true;
             pred[d1.row][d1.col] = v;
             QueueEnqueue(q, d1);
         }
-        if (l1.row >= 0 && l1.row < MazeHeight(m) && l1.col >= 0 && l1.col < MazeWidth(m) && !MazeIsWall(m, l1) && !visited[l1.row][l1.col]) {
+        if (isValidCell(m,l1,visited)) {
             visited[l1.row][l1.col] = true;
             pred[l1.row][l1.col] = v;
             QueueEnqueue(q, l1);
         }
-        if (r1.row >= 0 && r1.row < MazeHeight(m) && r1.col >= 0 && r1.col < MazeWidth(m) && !MazeIsWall(m, r1) && !visited[r1.row][r1.col]) {
+        if (isValidCell(m,r1,visited)) {
             visited[r1.row][r1.col] = true;
             pred[r1.row][r1.col] = v;
             QueueEnqueue(q, r1);
